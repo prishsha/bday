@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dirthbay</title>
+    <link rel="stylesheet" href="style_final.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#memories">Memories</a></li>
+                <li><a href="#poem">Poem</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="home" class="section">
+        <h1 id="message">CLICK ON ME</h1>
+        <img src="closed_box.png" alt="Gift Box" id="giftImage" class="closed_box">
+    </div>
+    <div id="memories" class="section">
+        <h2>Memories</h2>
+        <div class="memory-container">
+            <div class="memory" data-text="Pottery Workshop"><img src="img1..jpg" alt="Memory 1"></div>
+            <div class="memory" data-text="LDR VC"><img src="img2.jpg" alt="Memory 2"></div>
+            <div class="memory" data-text="Bookstore Date"><img src="img3.jpg" alt="Memory 3"></div>
+            <div class="memory" data-text="Martin Garrix"><img src="img4.jpg" alt="Memory 4"></div>
+            <div class="memory" data-text="Kaala Chasma"><img src="img5.jpg" alt="Memory 5"></div>
+            <div class="memory" data-text="Farewell"><img src="img6.jpg" alt="Memory 6"></div>
+        </div>
+    </div>
+    <div id="poem" class="section">
+        <h2>Poem</h2>
+        <div id="poem-container"></div>
+    </div>
+
+    <script>
+        document.getElementById('giftImage').addEventListener('click', function() {
+            this.style.display = 'none';
+            document.getElementById('message').textContent = 'HAPPIEST BIRTHDAY MEGH!!';
+            document.getElementById('message').classList.add('happy-birthday');
+        });
+
+        document.querySelectorAll('.memory').forEach(memory => {
+            memory.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                const text = this.getAttribute('data-text');
+
+                if (img.style.display === 'none') {
+                    img.style.display = 'block';
+                    this.innerHTML = '';
+                    this.appendChild(img);
+                } else {
+                    img.style.display = 'none';
+                    this.innerHTML = `<div class="memory-text">${text}</div>`;
+                    this.style.backgroundImage = `url(${img.src})`;
+                }
+            });
+        });
+
+        const poemLines = [
+            "megh oh megh youre so pretty",
+            "not only that youre also witty",
+            "you work hard and youre so so smart",
+            "and we love shopping in a grocery mart",
+            "i really kinda like you",
+            "and ik that your favourite color’s yellow, not blue",
+            "youre really kind and nice and sweet",
+            "and you eat all kinds of meat",
+            "i understand that this poem sounds a little stupid",
+            "but i love that i met you through dear cupid",
+            "and now its time to conclude",
+            "so just a reminder how much i love you, dude",
+            "i hope you have a great great birthday",
+            "and you get everything your way",
+            "this is your girlfriend, signing off",
+            "lets go grab a cup of coff(ee)!!"
+        ];
+
+        const poemContainer = document.getElementById('poem-container');
+
+        function displayLine(index) {
+            if (index < poemLines.length) {
+                const lineElement = document.createElement('div');
+                lineElement.classList.add('poem-line');
+                lineElement.textContent = poemLines[index];
+                poemContainer.appendChild(lineElement);
+
+                setTimeout(() => {
+                    lineElement.classList.add('visible');
+                }, 100);
+
+                setTimeout(() => {
+                    displayLine(index + 1);
+                }, 3000);
+            }
+        }
+
+        document.querySelector('a[href="#poem"]').addEventListener('click', () => {
+            if (!poemContainer.hasChildNodes()) {
+                displayLine(0);
+            }
+        });
+    </script>
+</body>
+</html>
